@@ -19,3 +19,5 @@
     }
 ];
 
+
+export const AI_PROMPT='Generate a travell plan for Location: {location} for {noOfDays}  with a {budget} budget give me hotel option list with hotel name hotel address ,pricing,geo coordinate ,hotel image url,rating descriptioin and suggest itinerary with place name place detail , place image url,geo coordinated , ticket price ,time taken to reach  for each of the location for 3 days for each day plan and best time to visit in JSON format '

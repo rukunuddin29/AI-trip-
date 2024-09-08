@@ -1,0 +1,42 @@
+  /*
+ * Install the Generative AI SDK
+ *
+ * $ npm install @google/generative-ai
+ */
+
+ import { GoogleGenerativeAI } from "@google/generative-ai";
+
+  const apiKey = import.meta.env.VITE_GOOGLE_GEMINI_AI_API_KEY;
+  const genAI = new GoogleGenerativeAI(apiKey);
+  
+  const model = genAI.getGenerativeModel({
+    model: "gemini-1.0-pro",
+  });
+  
+  const generationConfig = {
+    temperature: 0.9,
+    topP: 1,
+    maxOutputTokens: 2048,
+    responseMimeType: "application/json",
+  };
+
+
+   export const chatSession = model.startChat({
+    generationConfig,
+    history: [
+      {
+        role: "user",
+        parts: [
+          {text: "Generate a travell plan for Location: {location} for {noOfDays}  with a {budget} budget give me hotel option list with hotel name hotel address ,pricing,geo coordinate ,hotel image url,rating descriptioin and suggest itinerary with place name place detail , place image url,geo coordinated , ticket price ,time taken to reach  for each of the location for 3 days for each day plan and best time to visit in JSON format"},
+        ],
+      },
+      {
+        role: "model",
+        parts: [
+          {text: "```json\n{\n  \"location\": \"New York City\",\n  \"noOfDays\": 3,\n  \"budget\": 500,\n  \"hotelOptions\": [\n    {\n      \"hotelName\": \"The Ritz-Carlton New York, Central Park\",\n      \"hotelAddress\": \"118 Central Park South, New York, NY 10019\",\n      \"pricing\": 450,\n      \"geoCoordinate\": {\n        \"latitude\": 40.76388,\n        \"longitude\": -73.97447\n      },\n      \"hotelImageUrl\": \"https://www.ritzcarlton.com/en/hotels/new-york/central-park/images/hotel-exterior\",\n      \"rating\": 5,\n      \"description\": \"Located in the heart of Midtown Manhattan, The Ritz-Carlton New York, Central Park offers stunning views of Central Park and the Manhattan skyline.\"\n    },\n    {\n      \"hotelName\": \"The Peninsula New York\",\n      \"hotelAddress\": \"700 5th Ave, New York, NY 10019\",\n      \"pricing\": 350,\n      \"geoCoordinate\": {\n        \"latitude\": 40.76417,\n        \"longitude\": -73.97361\n      },\n      \"hotelImageUrl\": \"https://www.peninsula.com/en/new-york/hotel-peninsula\",\n      \"rating\": 5,\n      \"description\": \"The Peninsula New York is a luxury hotel located on 5th Avenue in Midtown Manhattan. It offers spacious rooms and suites with stunning views of Central Park and the Manhattan skyline.\"\n    },\n    {\n      \"hotelName\": \"The Waldorf Astoria New York\",\n      \"hotelAddress\": \"301 Park Ave, New York, NY 10022\",\n      \"pricing\": 250,\n      \"geoCoordinate\": {\n        \"latitude\": 40.779,\n        \"longitude\": -73.97361\n      },\n      \"hotelImageUrl\": \"https://www.waldorfastoria.com/new-york/\",\n      \"rating\": 4.5,\n      \"description\": \"The Waldorf Astoria New York is a historic hotel located in Midtown Manhattan. It offers elegant rooms and suites with views of Park Avenue and the Empire State Building.\"\n    }\n  ],\n  \"itinerary\": [\n    {\n      \"day\": 1,\n      \"places\": [\n        {\n          \"placeName\": \"The Empire State Building\",\n          \"placeDetails\": \"The Empire State Building is a 102-story Art Deco skyscraper in Midtown Manhattan, New York City. It was the tallest building in the world from its completion in 1931 until 1970.\",\n          \"placeImageUrl\": \"https://www.esbnyc.com/sites/default/files/styles/background_image_1440x570/public/2021-06/ESB_Masthead_Desktop_FA_JUNE%202021_1440x570px_01.jpg?h=570&w=1440&itok=4W5ymeq6\",\n          \"geoCoordinate\": {\n            \"latitude\": 40.74844,\n            \"longitude\": -73.98566\n          },\n          \"ticketPrice\": 38,\n          \"timeTakenToReach\": 20\n        },\n        {\n          \"placeName\": \"Times Square\",\n          \"placeDetails\": \"Times Square is a major commercial intersection, tourist destination, entertainment center, and neighborhood in Midtown Manhattan. It is one of the world's most visited tourist attractions, with more than 50 million visitors annually.\",\n          \"placeImageUrl\": \"https://www.nycgo.com/images/things-to-do/attractions/timessquare/timessquare-at-night4_2.jpg\",\n          \"geoCoordinate\": {\n            \"latitude\": 40.75889,\n            \"longitude\": -73.98513\n          },\n          \"ticketPrice\": 0,\n          \"timeTakenToReach\": 10\n        },\n        {\n          \"placeName\": \"Central Park\",\n          \"placeDetails\": \"Central Park is an urban park between the Upper West Side and Upper East Side neighborhoods of Manhattan. It is one of the most visited urban parks in the United States, with more than 40 million visitors annually.\",\n          \"placeImageUrl\": \"https://www.centralparknyc.org/images/cpcg-slide-3_3_1.jpg\",\n          \"geoCoordinate\": {\n            \"latitude\": 40.7829,\n            \"longitude\": -73.9654\n          },\n          \"ticketPrice\": 0,\n          \"timeTakenToReach\": 25\n        }\n      ]\n    },\n    {\n      \"day\": 2,\n      \"places\": [\n        {\n          \"placeName\": \"The Statue of Liberty\",\n          \"placeDetails\": \"The Statue of Liberty is a colossal neoclassical sculpture on Liberty Island in New York Harbor in New York City, in the United States. The copper statue, a gift from the people of France to the people of the United States, was designed by French sculptor Frédéric Auguste Bartholdi and its metal framework was built by Gustave Eiffel.\",\n          \"placeImageUrl\": \"https://www.nps.gov/stli/planyourvisit/upload/Statue-of-Liberty-Crown.jpg\",\n          \"geoCoordinate\": {\n            \"latitude\": 40.6892,\n            \"longitude\": -74.0445\n          },\n          \"ticketPrice\": 24,\n          \"timeTakenToReach\": 60\n        },\n        {\n          \"placeName\": \"Ellis Island\",\n          \"placeDetails\": \"Ellis Island is an island in Upper New York Bay, between the states of New York and New Jersey. It was the gateway for over 12 million immigrants to the United States between 1892 and 1954.\",\n          \"placeImageUrl\": \"https://www.nps.gov/elis/planyourvisit/images/ellis-island-at-sunset_1.jpg\",\n          \"geoCoordinate\": {\n            \"latitude\": 40.6892,\n            \"longitude\": -74.0445\n          },\n          \"ticketPrice\": 24,\n          \"timeTakenToReach\": 60\n        },\n        {\n          \"placeName\": \"The Brooklyn Bridge\",\n          \"placeDetails\": \"The Brooklyn Bridge is a hybrid cable-stayed/suspension bridge in New York City. It spans the East River between the boroughs of Manhattan and Brooklyn.\",\n          \"placeImageUrl\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Brooklyn_Bridge_from_Manhattan.jpg/1200px-Brooklyn_Bridge_from_Manhattan.jpg\",\n          \"geoCoordinate\": {\n            \"latitude\": 40.7059,\n            \"longitude\": -73.9964\n          },\n          \"ticketPrice\": 0,\n          \"timeTakenToReach\": 30\n        }\n      ]\n    },\n    {\n      \"day\": 3,\n      \"places\": [\n        {\n          \"placeName\": \"The Metropolitan Museum of Art\",\n          \"placeDetails\": \"The Metropolitan Museum of Art is the largest and one of the most comprehensive art museums in the world. The museum's collection includes more than two million works of art spanning over 5,000 years of art history.\",\n          \"placeImageUrl\": \"https://www.metmuseum.org/~/media/images/visit/plan-your-visit/plan-your-visit/building-expansions/met-fifth-avenue_3672x2254.jpg\",\n          \"geoCoordinate\": {\n            \"latitude\": 40.7794,\n            \"longitude\": -73.9633\n          },\n          \"ticketPrice\": 30,\n          \"timeTakenToReach\": 20\n        },\n        {\n          \"placeName\": \"The Museum of Modern Art (MoMA)\",\n          \"placeDetails\": \"The Museum of Modern Art is one of the largest and most influential modern art museums in the world. The museum's collection includes over 150,000 works of art, including paintings, sculptures, drawings, prints, photographs, and films.\",\n          \"placeImageUrl\": \"https://www.moma.org/wp-content/uploads/2020/08/MoMA_Exterior_090920_v2-scaled.jpg\",\n          \"geoCoordinate\": {\n            \"latitude\": 40.7614,\n            \"longitude\": -73.9738\n          },\n          \"ticketPrice\":"},
+        ],
+      },
+    ],
+  });
+
+ 
